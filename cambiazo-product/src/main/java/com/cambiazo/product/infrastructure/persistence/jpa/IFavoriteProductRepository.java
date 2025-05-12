@@ -1,0 +1,23 @@
+package com.cambiazo.product.infrastructure.persistence.jpa;
+
+import com.cambiazo.product.domain.model.entities.FavoriteProduct;
+import com.cambiazo.product.domain.model.entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface IFavoriteProductRepository extends JpaRepository<FavoriteProduct, Long> {
+
+    List<FavoriteProduct>findFavoriteProductsByUserId(Long userId);
+
+    Optional<FavoriteProduct>findFavoriteProductByUserIdAndProductId(Long userId, Product productId);
+
+    List<FavoriteProduct>findFavoriteProductsByProductId(Product productId);
+
+    boolean existsByUserIdAndProductId(Long userId, Product productId);
+
+    boolean existsFavoriteProductById(Long id);
+}

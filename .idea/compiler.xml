@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cambiazo-config" />
+        <module name="cambiazo-eureka" />
+        <module name="cambiazo-gateway" />
+        <module name="cambiazo-product" />
+        <module name="cambiazo-user" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cambiazo-config" options="-parameters" />
+      <module name="cambiazo-eureka" options="-parameters" />
+      <module name="cambiazo-gateway" options="-parameters" />
+      <module name="cambiazo-product" options="-parameters" />
+      <module name="cambiazo-user" options="-parameters" />
+    </option>
+  </component>
+</project>
