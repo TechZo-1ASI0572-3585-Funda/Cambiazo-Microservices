@@ -18,7 +18,47 @@ spring:
           uri: http://localhost:8090
           predicates:
             - Path=/api/v2/users/**
+        - id: authentication
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v2/authentication/**
+        - id: plans
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v2/plans/**
+        - id: subscriptions
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v2/subscriptions/**
+        - id: benefits
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v2/benefits/**
         - id: products
           uri: http://localhost:9090
           predicates:
             - Path=/api/v2/products/**
+        - id: product-categories
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/v2/product-categories/**
+        - id: districts
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/v2/districts/**
+        - id: favorite-products
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/v2/favorite-products/**
+        - id: countries
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/v2/countries/**
+        - id: departments
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/v2/departments/**
+
+
+
+
