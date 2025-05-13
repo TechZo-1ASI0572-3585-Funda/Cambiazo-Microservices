@@ -8,9 +8,9 @@ spring:
     name: cmbz-product
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/productDb
-    username: root
-    password: root
+    url: jdbc:mysql://backendcambiazo.mysql.database.azure.com:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
+    username: cambiazo
+    password: techZomovil2024
   jpa:
     hibernate:
       ddl-auto: update
