@@ -6,9 +6,9 @@ spring:
     name: cmbz-user
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/userdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: jdbc:mysql://backendcambiazo.mysql.database.azure.com:3306/userDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
+    username: cambiazo
+    password: techZomovil2024
   jpa:
     hibernate:
       ddl-auto: update
