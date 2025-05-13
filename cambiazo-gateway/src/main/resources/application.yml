@@ -1,8 +1,6 @@
 spring:
   application:
-    name: cmbz-eureka
+    name: cmbz-gateway
   config:
     import: optional:configserver:http://localhost:8888
-
-
 

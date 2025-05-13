@@ -25,7 +25,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("api/v2/products")
+@RequestMapping("/api/v2/products")
 @Tag(name = "Products", description = "Products Management Endpoints")
 public class ProductController {
 
