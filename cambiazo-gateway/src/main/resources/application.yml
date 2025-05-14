@@ -3,4 +3,16 @@ spring:
     name: cmbz-gateway
   config:
     import: optional:configserver:http://localhost:8888
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:4200"
+            allowed-methods:
+              - "*"
+            allowed-headers:
+              - "*"
+            allow-credentials: true
 
