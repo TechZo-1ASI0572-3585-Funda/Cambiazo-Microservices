@@ -1,19 +1,19 @@
 server:
-  port: 8090
+  port: 8060
 
 spring:
   application:
-    name: cmbz-user
+    name: cmbz-ong
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/userDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
+    url: jdbc:mysql://localhost:3306/ongDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
     username: root
     password: root
   jpa:
     hibernate:
       ddl-auto: update
       naming:
-        physical-strategy: com.cambiazo.user.shared.infrastructure.strategy.SnakeCaseWithPluralizedTablePhysicalNamingStrategy
+        physical-strategy: com.cambiazo.ong.shared.infrastructure.strategy.SnakeCaseWithPluralizedTablePhysicalNamingStrategy
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true

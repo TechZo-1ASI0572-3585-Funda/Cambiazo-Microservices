@@ -1,3 +1,6 @@
+#url: jdbc:mysql://backendcambiazo.mysql.database.azure.com:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
+#    username: cambiazo
+#    password: techZomovil2024
 server:
   port: 9090
 
@@ -8,9 +11,9 @@ spring:
     name: cmbz-product
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://backendcambiazo.mysql.database.azure.com:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
-    username: cambiazo
-    password: techZomovil2024
+    url: jdbc:mysql://localhost:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: update

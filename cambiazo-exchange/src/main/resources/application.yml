@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: cmbz-exchange
+  config:
+    import: optional:configserver:http://localhost:8888
+

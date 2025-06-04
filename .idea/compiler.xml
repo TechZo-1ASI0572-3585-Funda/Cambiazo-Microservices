@@ -7,11 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cambiazo-config" />
+        <module name="cambiazo-ong" />
         <module name="cambiazo-eureka" />
         <module name="cambiazo-gateway" />
         <module name="cambiazo-product" />
         <module name="cambiazo-user" />
+        <module name="cambiazo-config" />
+        <module name="cambiazo-exchange" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,7 +21,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cambiazo-config" options="-parameters" />
       <module name="cambiazo-eureka" options="-parameters" />
+      <module name="cambiazo-exchange" options="-parameters" />
       <module name="cambiazo-gateway" options="-parameters" />
+      <module name="cambiazo-ong" options="-parameters" />
       <module name="cambiazo-product" options="-parameters" />
       <module name="cambiazo-user" options="-parameters" />
     </option>
