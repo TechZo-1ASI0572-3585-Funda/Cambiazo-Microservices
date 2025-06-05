@@ -11,14 +11,17 @@ import com.cambiazo.product.domain.services.IProductCommandService;
 import com.cambiazo.product.domain.services.IProductQueryService;
 import com.cambiazo.product.interfaces.rest.resources.CreateProductResource;
 import com.cambiazo.product.interfaces.rest.resources.ProductResource;
+import com.cambiazo.product.interfaces.rest.resources.UpdateProductAvailabilityResource;
 import com.cambiazo.product.interfaces.rest.resources.UpdateProductResource;
 import com.cambiazo.product.interfaces.rest.transform.CreateProductCommandFromResourceAssembler;
 import com.cambiazo.product.interfaces.rest.transform.ProductResourceFromEntityAssembler;
+import com.cambiazo.product.interfaces.rest.transform.UpdateProductAvailabilityCommandFromResourceAssembler;
 import com.cambiazo.product.interfaces.rest.transform.UpdateProductCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -113,6 +116,20 @@ public class ProductController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @RequestMapping(value = "/edit/available", method = {RequestMethod.PATCH, RequestMethod.POST})
+    public ResponseEntity<Boolean> updateProductAvailability(@RequestBody UpdateProductAvailabilityResource resource) {
+        try {
+            var updateProductAvailabilityCommand =
+                    UpdateProductAvailabilityCommandFromResourceAssembler.toCommandFromResource(resource);
+            var result = productCommandService.handle(updateProductAvailabilityCommand);
+            Boolean availabilityUpdated = result.orElse(false);
+            return ResponseEntity.ok(availabilityUpdated);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
 
 //

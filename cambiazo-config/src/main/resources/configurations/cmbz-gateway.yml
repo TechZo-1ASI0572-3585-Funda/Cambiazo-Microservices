@@ -58,6 +58,14 @@ spring:
           uri: http://localhost:9090
           predicates:
             - Path=/api/v2/departments/**
+        - id: exchanges
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v2/exchanges/**
+        - id: reviews
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v2/reviews/**
 
 
 

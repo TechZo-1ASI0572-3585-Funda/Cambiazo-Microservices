@@ -6,6 +6,7 @@ import com.cambiazo.product.client.SubscriptionClient;
 import com.cambiazo.product.client.UserClient;
 import com.cambiazo.product.domain.model.commands.CreateProductCommand;
 import com.cambiazo.product.domain.model.commands.DeleteProductOfPendingExchangesCommand;
+import com.cambiazo.product.domain.model.commands.UpdateProductAvailabilityCommand;
 import com.cambiazo.product.domain.model.commands.UpdateProductCommand;
 import com.cambiazo.product.domain.model.dtos.PlanDto;
 import com.cambiazo.product.domain.model.dtos.SubscriptionDto;
@@ -259,7 +260,13 @@ public class ProductCommandServiceImpl implements IProductCommandService {
 
     }
 
-
+    @Override
+    public Optional<Boolean> handle(UpdateProductAvailabilityCommand command) {
+        var result = this.productRepository.findById(command.id()).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        result.setAvailable(command.available());
+        this.productRepository.save(result);
+        return Optional.of(true);
+    }
 
 
 
