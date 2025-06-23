@@ -66,6 +66,27 @@ spring:
           uri: http://localhost:8070
           predicates:
             - Path=/api/v2/reviews/**
+        - id: account-numbers
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v2/donations/account-number/**
+        - id: category-ongs
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v2/donations/category-ongs/**
+        - id: ongs
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v2/donations/ongs/**
+        - id: projects
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v2/donations/projects/**
+        - id: social-networks
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v2/donations/social-networks/**
+
 
 
 

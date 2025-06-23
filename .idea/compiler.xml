@@ -11,6 +11,7 @@
         <module name="cambiazo-eureka" />
         <module name="cambiazo-gateway" />
         <module name="cambiazo-product" />
+        <module name="donations" />
         <module name="cambiazo-user" />
         <module name="cambiazo-config" />
         <module name="cambiazo-exchange" />
@@ -26,6 +27,7 @@
       <module name="cambiazo-ong" options="-parameters" />
       <module name="cambiazo-product" options="-parameters" />
       <module name="cambiazo-user" options="-parameters" />
+      <module name="donations" options="-parameters" />
     </option>
   </component>
 </project>
