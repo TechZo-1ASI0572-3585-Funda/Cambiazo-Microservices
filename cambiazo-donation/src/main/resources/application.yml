@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: cmbz-donation
+  config:
+    import: optional:configserver:http://localhost:8888
