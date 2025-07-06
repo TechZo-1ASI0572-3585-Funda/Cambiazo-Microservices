@@ -1,34 +1,52 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: cmbz-exchange
-  config:
-    import: optional:configserver:http://config-server:8080
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mservices-cambiazo.mysql.database.azure.com:3306/exchangeDb?sslMode=REQUIRED&useSSL=true&allowPublicKeyRetrieval=true
-    username: cambiazo
-    password: Techzo123
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: com.cambiazo.exchange.shared.infrastructure.strategy.SnakeCaseWithPluralizedTablePhysicalNamingStrategy
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-        format_sql: true
+    name: cmbz-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: cmbz-user
+          uri: lb://cmbz-user
+          predicates:
+            - Path=/api/v2/users/**
+        - id: cmbz-user-auth
+          uri: lb://cmbz-user
+          predicates:
+            - Path=/api/v2/authentication/**
+        - id: cmbz-user-plans
+          uri: lb://cmbz-user
+          predicates:
+            - Path=/api/v2/plans/**
+        - id: cmbz-user-subscriptions
+          uri: lb://cmbz-user
+          predicates:
+            - Path=/api/v2/subscriptions/**
+        - id: cmbz-user-benefits
+          uri: lb://cmbz-user
+          predicates:
+            - Path=/api/v2/benefits/**
+        - id: cmbz-product
+          uri: lb://cmbz-product
+          predicates:
+            - Path=/api/v2/products/**,/api/v2/product-categories/**,/api/v2/districts/**,/api/v2/favorite-products/**,/api/v2/countries/**,/api/v2/departments/**
+        - id: cmbz-exchange
+          uri: lb://cmbz-exchange
+          predicates:
+            - Path=/api/v2/exchanges/**,/api/v2/reviews/**
+        - id: cmbz-donation
+          uri: lb://cmbz-donation
+          predicates:
+            - Path=/api/v2/donations/**
 
 eureka:
-  instance:
-    hostname: exchange
-    prefer-ip-address: true
-    instance-id: exchange
-
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://eureka:8080/eureka/
