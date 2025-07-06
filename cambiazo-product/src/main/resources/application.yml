@@ -2,6 +2,4 @@ spring:
   application:
     name: cmbz-product
   config:
-    import: optional:configserver:http://localhost:8888
-
-
+    import: optional:configserver:http://config-server:8080

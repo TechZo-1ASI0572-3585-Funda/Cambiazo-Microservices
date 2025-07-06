@@ -1,19 +1,15 @@
-#url: jdbc:mysql://backendcambiazo.mysql.database.azure.com:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
-#    username: cambiazo
-#    password: techZomovil2024
-server:
-  port: 9090
-
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: cmbz-product
+  config:
+    import: optional:configserver:http://config-server:8080
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/productDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
-    username: root
-    password: root
+    url: jdbc:mysql://mservices-cambiazo.mysql.database.azure.com:3306/productDb?sslMode=REQUIRED&useSSL=true&allowPublicKeyRetrieval=true
+    username: cambiazo
+    password: Techzo123
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -27,11 +23,12 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-
 eureka:
   instance:
-    hostname: localhost
+    hostname: product
+    prefer-ip-address: true
+    instance-id: product
+
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
-
+      defaultZone: http://eureka:8080/eureka/

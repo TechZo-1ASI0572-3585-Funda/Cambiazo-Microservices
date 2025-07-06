@@ -14,6 +14,7 @@
         <module name="donations" />
         <module name="cambiazo-user" />
         <module name="cambiazo-config" />
+        <module name="donation" />
         <module name="cambiazo-exchange" />
       </profile>
     </annotationProcessing>
@@ -27,6 +28,7 @@
       <module name="cambiazo-ong" options="-parameters" />
       <module name="cambiazo-product" options="-parameters" />
       <module name="cambiazo-user" options="-parameters" />
+      <module name="donation" options="-parameters" />
       <module name="donations" options="-parameters" />
     </option>
   </component>

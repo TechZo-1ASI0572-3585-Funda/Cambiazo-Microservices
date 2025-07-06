@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: cmbz-ong
-  config:
-    import: optional:configserver:http://localhost:8888
-

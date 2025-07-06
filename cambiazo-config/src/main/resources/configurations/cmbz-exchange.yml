@@ -1,14 +1,15 @@
-server:
-  port: 8070
-
 spring:
   application:
     name: cmbz-exchange
+  config:
+    import: optional:configserver:https://cmbz-microservices-d5g5frgpafdbh9eb.westus-01.azurewebsites.net
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exchangeDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
-    username: root
-    password: root
+    url: jdbc:mysql://mservices-cambiazo.mysql.database.azure.com:3306/exchangeDb?sslMode=REQUIRED&useSSL=true&allowPublicKeyRetrieval=true
+    username: cambiazo
+    password: Techzo123
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,10 +23,12 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-
 eureka:
   instance:
-    hostname: localhost
+    hostname: cmbz-exchange.azurewebsites.net
+    prefer-ip-address: false
+    instance-id: cmbz-exchange.azurewebsites.net
+
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: https://cmbz-eureka.azurewebsites.net/eureka/

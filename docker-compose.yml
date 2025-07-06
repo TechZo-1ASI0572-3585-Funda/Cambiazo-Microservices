@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  config-server:
+    image: openjdk:21
+    container_name: config-server
+    volumes:
+      - ./config-server:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    ports:
+      - "8888:8080"
+    networks:
+      - cambiazo
+
+  eureka:
+    image: openjdk:21
+    container_name: eureka
+    volumes:
+      - ./cambiazo-eureka:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    ports:
+      - "8761:8080"
+    depends_on:
+      - config-server
+    networks:
+      - cambiazo
+
+  gateway:
+    image: openjdk:21
+    container_name: gateway
+    volumes:
+      - ./cambiazo-gateway:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+    networks:
+      - cambiazo
+
+  user:
+    image: openjdk:21
+    container_name: user
+    volumes:
+      - ./cambiazo-user:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    depends_on:
+      - config-server
+      - eureka
+    networks:
+      - cambiazo
+
+  product:
+    image: openjdk:21
+    container_name: product
+    volumes:
+      - ./cambiazo-product:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    depends_on:
+      - config-server
+      - eureka
+    networks:
+      - cambiazo
+
+  exchange:
+    image: openjdk:21
+    container_name: exchange
+    volumes:
+      - ./cambiazo-exchange:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    depends_on:
+      - config-server
+      - eureka
+    networks:
+      - cambiazo
+
+  donation:
+    image: openjdk:21
+    container_name: donation
+    volumes:
+      - ./cambiazo-donation:/app
+    working_dir: /app
+    command: ["java","-jar","app.jar"]
+    depends_on:
+      - config-server
+      - eureka
+    networks:
+      - cambiazo
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - gateway
+      - eureka
+    networks:
+      - cambiazo
+
+networks:
+  cambiazo:
+    driver: bridge

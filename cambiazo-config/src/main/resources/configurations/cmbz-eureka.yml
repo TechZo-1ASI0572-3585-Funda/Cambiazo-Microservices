@@ -1,17 +1,17 @@
-server:
-  port: 8761
-
 spring:
   application:
     name: cmbz-eureka
+  config:
+    import: optional:configserver:http://config-server:8080
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: eureka
+    prefer-ip-address: true
+    instance-id: eureka
+
   client:
     register-with-eureka: false
     fetch-registry: false
-    serviceUrl:
-      defaultZone: http://localhost:${server.port}/eureka/
-
-
+    service-url:
+      defaultZone: http://localhost:8080/eureka/

@@ -1,14 +1,15 @@
-server:
-  port: 8060
-
 spring:
   application:
     name: cmbz-donation
+  config:
+    import: optional:configserver:http://config-server:8080
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/donationDb?sslMode=REQUIRED&allowPublicKeyRetrieval=true&useSSL=true
-    username: root
-    password: root
+    url: jdbc:mysql://mservices-cambiazo.mysql.database.azure.com:3306/donationDb?sslMode=REQUIRED&useSSL=true&allowPublicKeyRetrieval=true
+    username: cambiazo
+    password: Techzo123
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,10 +23,12 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-
 eureka:
   instance:
-    hostname: localhost
+    hostname: donation
+    prefer-ip-address: true
+    instance-id: donation
+
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka:8080/eureka/
