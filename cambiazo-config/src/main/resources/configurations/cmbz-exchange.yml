@@ -1,5 +1,5 @@
 server:
-  port: 8070
+  port: 8083
 
 spring:
   main:
@@ -7,7 +7,7 @@ spring:
   application:
     name: cmbz-exchange
   config:
-    import: optional:configserver:https://cmbz-microservices-d5g5frgpafdbh9eb.westus-01.azurewebsites.net
+    import: optional:configserver:http://config-server:8080
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -30,11 +30,11 @@ spring:
 
 eureka:
   instance:
-    hostname: cmbz-exchange.azurewebsites.net
-    prefer-ip-address: false
-    instance-id: cmbz-exchange.azurewebsites.net
+    hostname: exchange
+    prefer-ip-address: true
+    instance-id: exchange
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: https://cmbz-eureka.azurewebsites.net/eureka/
+      defaultZone: http://eureka:8080/eureka/

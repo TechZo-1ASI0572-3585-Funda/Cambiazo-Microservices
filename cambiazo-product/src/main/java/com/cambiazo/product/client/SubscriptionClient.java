@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="cmbz-user", url = "http://localhost:8090/api/v2/subscriptions")
-public interface SubscriptionClient{
-    @GetMapping("/active/{userId}")
-    public ResponseEntity<SubscriptionDto>getActiveSubscriptionByUserId(@PathVariable Long userId);
+@FeignClient(name = "cmbz-user")
+public interface SubscriptionClient {
+    @GetMapping("/api/v2/subscriptions/active/{userId}")
+    ResponseEntity<SubscriptionDto> getActiveSubscriptionByUserId(@PathVariable Long userId);
 }

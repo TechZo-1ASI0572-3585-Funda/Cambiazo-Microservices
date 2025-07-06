@@ -1,6 +1,5 @@
 package com.cambiazo.exchange.client;
 
-
 import com.cambiazo.exchange.domain.model.dtos.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -9,14 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name="cmbz-user", url = "http://localhost:8090/api/v2/users")
+@FeignClient(name = "cmbz-user")
 public interface UserClient {
 
-    @GetMapping(value = "/{userId}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId);
+    @GetMapping("/api/v2/users/{userId}")
+    ResponseEntity<UserDto> getUserById(@PathVariable Long userId);
 
-
-    @GetMapping(value = "")
-    public ResponseEntity<List<UserDto>> getAllUsers();
+    @GetMapping("/api/v2/users")
+    ResponseEntity<List<UserDto>> getAllUsers();
 }
-
