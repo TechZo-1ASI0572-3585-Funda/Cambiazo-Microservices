@@ -176,9 +176,12 @@ public class ProductCommandServiceImpl implements IProductCommandService {
         District district = districtRepository.findById(command.districtId())
                 .orElseThrow(() -> new IllegalArgumentException("District with id not found"));
 
+        System.out.println(" ==== LLEGO ACA===== ");
         try {
             var product = new Product(command, productCategory, user.getBody().getId(), district);
+            System.out.println(" ==== LLEGO ACA2===== " + product);
             productRepository.save(product);
+            System.out.println(" ==== LLEGO ACA3===== ");
             return Optional.of(product);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while creating product: " + e.getMessage());

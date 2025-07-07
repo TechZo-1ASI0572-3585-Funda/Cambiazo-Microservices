@@ -24,7 +24,6 @@
     <module>cambiazo-user</module>
     <module>cambiazo-product</module>
     <module>cambiazo-exchange</module>
-    <module>cambiazo-ong</module>
     <module>cambiazo-donation</module>
   </modules>
 
