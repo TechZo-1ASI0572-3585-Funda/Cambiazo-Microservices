@@ -25,6 +25,7 @@
     <module>cambiazo-product</module>
     <module>cambiazo-exchange</module>
     <module>cambiazo-donation</module>
+    <module>cambiazo-security</module>
   </modules>
 
   <properties>

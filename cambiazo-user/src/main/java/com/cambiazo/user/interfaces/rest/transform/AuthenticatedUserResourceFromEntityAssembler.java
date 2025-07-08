@@ -4,7 +4,7 @@ import com.cambiazo.user.domain.model.aggregates.User;
 import com.cambiazo.user.interfaces.rest.resources.AuthenticatedUserResource;
 
 public class AuthenticatedUserResourceFromEntityAssembler {
-    public static AuthenticatedUserResource toResourceFromEntity(User user) {
+    public static AuthenticatedUserResource toResourceFromEntity(User user, String token) {
         return new AuthenticatedUserResource(
                 user.getId(),
                 user.getUsername(),
@@ -12,7 +12,8 @@ public class AuthenticatedUserResourceFromEntityAssembler {
                 user.getPhoneNumber(),
                 user.getProfilePicture(),
                 user.getIsActive(),
-                user.getIsGoogleAccount() != null ? user.getIsGoogleAccount() : false
+                user.getIsGoogleAccount() != null ? user.getIsGoogleAccount() : false,
+                token
         );
     }
 }

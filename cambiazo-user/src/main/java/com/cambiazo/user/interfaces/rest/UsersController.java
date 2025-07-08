@@ -1,5 +1,6 @@
 package com.cambiazo.user.interfaces.rest;
 
+import com.cambiazo.security.jwt.JwtUtil;
 import com.cambiazo.user.domain.model.dto.UserNameDto;
 import com.cambiazo.user.domain.model.queries.GetAllUsersQuery;
 import com.cambiazo.user.domain.model.queries.GetUserByEmailQuery;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is a REST controller that exposes the users resource.
@@ -26,12 +28,13 @@ import java.util.List;
 @Tag(name = "Users", description = "User Management Endpoints")
 public class UsersController {
     private final UserQueryService userQueryService;
-
+    private final JwtUtil jwtUtil;
     private final UserCommandService userCommandService;
 
-    public UsersController(UserQueryService userQueryService, UserCommandService userCommandService) {
+    public UsersController(UserQueryService userQueryService, UserCommandService userCommandService, JwtUtil jwtUtil) {
         this.userQueryService = userQueryService;
         this.userCommandService = userCommandService;
+        this.jwtUtil = jwtUtil;
     }
 
 
@@ -78,13 +81,17 @@ public class UsersController {
     }
 
     @PutMapping(value = "/edit/profile/{userId}")
-    public ResponseEntity<AuthenticatedUserResource>updateUserProfile(@PathVariable Long userId, @RequestBody UpdateUserProfileResource resource){
-        var updateUserProfileCommand = UpdateProfileUserCommandFromResourceAssembler.toCommandFromResource(userId,resource);
+    public ResponseEntity<AuthenticatedUserResource> updateUserProfile(@PathVariable Long userId, @RequestBody UpdateUserProfileResource resource) {
+        var updateUserProfileCommand = UpdateProfileUserCommandFromResourceAssembler.toCommandFromResource(userId, resource);
         var user = userCommandService.handle(updateUserProfileCommand);
         if (user.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        var authenticatedUserResource = AuthenticatedUserResourceFromEntityAssembler.toResourceFromEntity(user.get().getLeft());
+        String rolesCsv = user.get().getLeft().getRoles().stream()
+                .<String>map(role -> role.getName().toString())
+                .collect(Collectors.joining(","));
+        var token = jwtUtil.generateToken(user.get().getLeft().getUsername(), rolesCsv);
+        var authenticatedUserResource = AuthenticatedUserResourceFromEntityAssembler.toResourceFromEntity(user.get().getLeft(), token);
         return ResponseEntity.ok(authenticatedUserResource);
     }
 

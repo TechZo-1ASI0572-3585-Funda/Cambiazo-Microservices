@@ -1,5 +1,6 @@
 package com.cambiazo.user.interfaces.rest;
 
+import com.cambiazo.security.jwt.JwtUtil;
 import com.cambiazo.user.domain.services.UserCommandService;
 import com.cambiazo.user.interfaces.rest.resources.AuthenticatedUserResource;
 import com.cambiazo.user.interfaces.rest.resources.SignInResource;
@@ -18,49 +19,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * AuthenticationController
- * <p>
- *     This controller is responsible for handling authentication requests.
- *     It exposes two endpoints:
- *     <ul>
- *         <li>POST /api/v1/auth/sign-in</li>
- *         <li>POST /api/v1/auth/sign-up</li>
- *     </ul>
- * </p>
- */
 @RestController
 @RequestMapping(value = "/api/v2/authentication", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Authentication", description = "Authentication Endpoints")
 public class AuthenticationController {
     private final UserCommandService userCommandService;
+    private final JwtUtil jwtUtil;
 
-    public AuthenticationController(UserCommandService userCommandService) {
+    public AuthenticationController(UserCommandService userCommandService, JwtUtil jwtUtil) {
         this.userCommandService = userCommandService;
+        this.jwtUtil = jwtUtil;
     }
 
-    /**
-     * Handles the sign-in request.
-     * @param signInResource the sign-in request body.
-     * @return the authenticated user resource.
-     */
     @PostMapping("/validate")
-    public ResponseEntity<UserResource> validateCredentials(@RequestBody SignInResource signInResource) {
-        var signInCommand = SignInCommandFromResourceAssembler.toCommandFromResource(signInResource);
-        var user = userCommandService.validateCredentials(signInCommand);
-        if (user.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<AuthenticatedUserResource> validateCredentials(@RequestBody SignInResource signInResource) {
+        var cmd = SignInCommandFromResourceAssembler.toCommandFromResource(signInResource);
+        var userOpt = userCommandService.validateCredentials(cmd);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
-        return ResponseEntity.ok(userResource);
+        var user = userOpt.get();
+        String token = jwtUtil.generateToken(user.getUsername(), "ROLE_USER,ROLE_ADMIN");
+        var resource = AuthenticatedUserResourceFromEntityAssembler.toResourceFromEntity(user, token);
+        return ResponseEntity.ok(resource);
     }
 
-
-    /**
-     * Handles the sign-up request.
-     * @param signUpResource the sign-up request body.
-     * @return the created user resource.
-     */
     @PostMapping("/sign-up")
     public ResponseEntity<UserResource> signUp(@RequestBody SignUpResource signUpResource) {
         var signUpCommand = SignUpCommandFromResourceAssembler.toCommandFromResource(signUpResource);

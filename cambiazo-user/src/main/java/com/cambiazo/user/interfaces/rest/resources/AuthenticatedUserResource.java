@@ -7,7 +7,8 @@ public record AuthenticatedUserResource(
         String phoneNumber,
         String profilePicture,
         Boolean isActive,
-        Boolean isGoogleAccount
+        Boolean isGoogleAccount,
+        String token
 ) {
     public AuthenticatedUserResource {
         if (isGoogleAccount == null) {
