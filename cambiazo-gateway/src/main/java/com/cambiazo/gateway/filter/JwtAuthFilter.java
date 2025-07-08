@@ -20,7 +20,30 @@ public class JwtAuthFilter implements GlobalFilter {
             "/api/v2/users",
             "/api/v2/users/",
             "/api/v2/authentication",
-            "/api/v2/authentication/"
+            "/api/v2/authentication/",
+            "/api/v2/ongs/",
+            "/api/v2/donations/ongs",
+            "/api/v2/donations/category-ongs",
+            "/api/v2/donations/projects/ongs",
+            "/api/v2/donations/projects/ongs/**",
+            "/api/v2/donations/social-networks/ongs",
+            "/api/v2/donations/social-networks/ongs/**",
+            "/api/v2/donations/account-number/ongs",
+            "/api/v2/donations/account-number/ongs/**",
+            "/api/v2/countries",
+            "/api/v2/countries/**",
+            "/api/v2/departments",
+            "/api/v2/products/**",
+            "/api/v2/products",
+            "/api/v2/product-categories",
+            "/api/v2/product-categories/**",
+            "/api/v2/plans/**",
+            "/api/v2/plans",
+            "/api/v2/departments/**",
+            "/api/v2/districts",
+            "/api/v2/users",
+            "/api/v2/users/**",
+            "/api/v2/districts/**"
     );
 
     @Override
