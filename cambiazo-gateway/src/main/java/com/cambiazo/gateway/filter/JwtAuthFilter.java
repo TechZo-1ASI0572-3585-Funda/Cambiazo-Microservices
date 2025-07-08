@@ -9,14 +9,26 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Component
 public class JwtAuthFilter implements GlobalFilter {
+
+    private static final List<String> PUBLIC_PATHS = List.of(
+            "/api/v2/products",
+            "/api/v2/products/",
+            "/api/v2/users",
+            "/api/v2/users/",
+            "/api/v2/authentication",
+            "/api/v2/authentication/"
+    );
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
 
-        if (path.startsWith("/api/v2/authentication")) {
+        boolean isPublic = PUBLIC_PATHS.stream().anyMatch(path::startsWith);
+        if (isPublic) {
             return chain.filter(exchange);
         }
 
@@ -34,6 +46,7 @@ public class JwtAuthFilter implements GlobalFilter {
                 return exchange.getResponse().setComplete();
             }
         }
+
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
         return exchange.getResponse().setComplete();
     }

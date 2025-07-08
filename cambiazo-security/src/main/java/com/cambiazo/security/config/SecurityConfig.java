@@ -28,7 +28,22 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/v2/authentication/sign-in",
                                 "/api/v2/authentication/sign-up",
-                                "/api/v2/authentication/validate"
+                                "/api/v2/authentication/validate",
+                                "/api/v2/donations/**",
+                                "/api/v2/countries",
+                                "/api/v2/countries/**",
+                                "/api/v2/departments",
+                                "/api/v2/products/**",
+                                "/api/v2/products",
+                                "/api/v2/product-categories",
+                                "/api/v2/product-categories/**",
+                                "/api/v2/plans/**",
+                                "/api/v2/plans",
+                                "/api/v2/departments/**",
+                                "/api/v2/districts",
+                                "/api/v2/users",
+                                "/api/v2/users/**",
+                                "/api/v2/districts/**"
                         ).permitAll()
                         .requestMatchers(request ->
                                 "true".equals(request.getHeader("Internal-Request"))
