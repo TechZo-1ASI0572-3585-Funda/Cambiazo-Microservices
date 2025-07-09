@@ -43,7 +43,10 @@ public class SecurityConfig {
                                 "/api/v2/districts",
                                 "/api/v2/users",
                                 "/api/v2/users/**",
-                                "/api/v2/districts/**"
+                                "/api/v2/districts/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
                         ).permitAll()
                         .requestMatchers(request ->
                                 "true".equals(request.getHeader("Internal-Request"))
